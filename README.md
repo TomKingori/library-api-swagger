@@ -31,4 +31,4 @@ Make sure you have the following software installed on your machine:
    ```bash
    node index.js
 
-The app will start and listen on port 3003. You can access it by navigating to `http://localhost:3003` in your web browser.
+The app will start and listen on port 3003. You can access it by navigating to `http://localhost:3003/api-docs` in your web browser.

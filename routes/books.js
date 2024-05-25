@@ -4,6 +4,56 @@ const { nanoid } = require("nanoid");
 
 const idLength = 8;
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Book:
+ *       type: object
+ *       required:
+ *         - title
+ *         - author
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: auto-generated id of the book
+ *         title:
+ *           type: string
+ *           description: the book title
+ *         author:
+ *           type: string
+ *           description: The book author
+ *       example:
+ *         id: "s5fE_asd"
+ *         title: "The New Turing Omnibus"
+ *         author: "Alexander Tom"
+ */
+
+/**
+ * @swagger
+ * tags:
+ *    name: Books
+ *    description: The books managing API
+ */
+
+/**
+ * @swagger
+ * /books:
+ *   get:
+ *     summary: Returns list of all the books
+ *     tags: [Books]
+ *     responses:
+ *       200:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Book'
+ */
+
+
 router.get("/", (req, res) => {
   const books = req.app.db.get("books");
 
