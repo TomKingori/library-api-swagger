@@ -40,7 +40,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.db = db;
 
 app.use(cors());
-app.use(express.json);
+app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/books", booksRouter);

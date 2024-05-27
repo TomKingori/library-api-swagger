@@ -60,11 +60,62 @@ router.get("/", (req, res) => {
   res.send(books);
 });
 
+/**
+ * @swagger
+ * /books/{id}:
+ *   get:
+ *     summary: Get a single book by id
+ *     tags: [Books]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The book id
+ *     responses:
+ *       200:
+ *         description: The book details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: The book was not found
+ */
+
 router.get("/:id", (req, res) => {
   const book = req.app.db.get("books").find({ id: req.params.id }).value();
+  if(!book){
+    res.sendStatus(404)
+  }
 
   res.send(book);
 });
+
+/**
+ * @swagger
+ * /books/:
+ *   post:
+ *     summary: Create a new book
+ *     tags: [Books]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Book'
+ *     responses:
+ *       200:
+ *         description: The book was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       500:
+ *         description: Some server error
+ */
+
 
 router.post("/", (req, res) => {
   try {
@@ -73,10 +124,44 @@ router.post("/", (req, res) => {
       ...req.body,
     };
     req.app.db.get("books").push(book).write();
+    res.send(book)
   } catch (error) {
     return res.status(500).send(error);
   }
 });
+
+/**
+ * @swagger
+ * /books/{id}:
+ *   put:
+ *     summary: Update a book by id
+ *     tags: [Books]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The book id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Book'
+ *     responses:
+ *       200:
+ *         description: The book was successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       404:
+ *         description: The book was not found
+ *       500:
+ *         description: Some server error
+ */
+
 
 router.put("/:id", (req, res) => {
   try {
@@ -91,6 +176,26 @@ router.put("/:id", (req, res) => {
     return res.status(500).send(error);
   }
 });
+
+/**
+ * @swagger
+ * /books/{id}:
+ *   delete:
+ *     summary: Remove the book by id
+ *     tags: [Books]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The book id
+ *     responses:
+ *       200:
+ *         description: The book was successfully deleted
+ *       404:
+ *         description: The book was not found
+ */
 
 router.delete("/:id", (req, res) => {
   req.app.db.get("books").remove({ id: req.params.id }).write();
