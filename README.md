@@ -4,10 +4,17 @@ A simple Express-based API for managing a library, integrated with LowDB for dat
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+install dev dependencies
 
-### Running the app**:
-   ```bash
-   npm run dev
+```
+npm install
+```
 
-The app will start and listen on port 3003. You can access it by navigating to `http://localhost:3003/api-docs` in your web browser.
+
+## Running the app
+
+```
+npm run dev
+```
+
+- The app will start and listen on port 3003. You can access it by navigating to `http://localhost:3003/api-docs` in your web browser.
